@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resize-worker
+spec:
+  containers:
+  - name: resize-worker-container
+    image: sergeycoder/resize-worker
+    env:
+    - name: MONGODB_URI
+      valueFrom:
+        secretKeyRef:
+          name: mongodb-uri-secret
+          key: mongodb_uri
+    - name: PUBSUB_KEYFILE  # Add this environment variable
+      value: "/app/resize-415118-4cbe3b9ae616-pubsub.json"
+    - name: GCS_KEYFILE  # Add this environment variable
+      value: "/app/resize-415118-cca6aaebd900.json"
+    volumeMounts:
+    - name: service-account-pubsub
+      mountPath: "/app/resize-415118-4cbe3b9ae616-pubsub.json"
+      subPath: "resize-415118-4cbe3b9ae616-pubsub.json"
+    - name: service-account-gcs
+      mountPath: "/app/resize-415118-cca6aaebd900.json"
+      subPath: "resize-415118-cca6aaebd900.json"
+  volumes:
+  - name: service-account-pubsub
+    secret:
+      secretName: service-account-pubsub-secret
+  - name: service-account-gcs
+    secret:
+      secretName: service-account-gcs-secret

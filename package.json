@@ -1,0 +1,23 @@
+{
+  "name": "resize-main",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "api",
+    "resize",
+    "webapp"
+  ],
+  "dependencies": {
+    "mongodb": "^6.3.0",
+    "@google-cloud/pubsub": "^4.3.2",
+    "@google-cloud/storage": "^7.7.0"
+  }
+}
